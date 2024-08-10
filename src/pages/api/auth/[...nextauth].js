@@ -8,7 +8,6 @@ import NextAuth from "next-auth"
 import Auth0Provider from "next-auth/providers/auth0"
 
 const authOptions = {
-  httpOptions: { timeout: 10_000 },
   providers: [
     Auth0Provider({
       clientId: AUTH0_CLIENT_ID,
