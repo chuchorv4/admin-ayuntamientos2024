@@ -5,5 +5,6 @@ namespace NodeJS {
     AUTH0_CLIENT_ID: string
     AUTH0_CLIENT_SECRET: string
     AUTH0_ISSUER: string
+    NEXTAUTH_SECRET: string
   }
 }
