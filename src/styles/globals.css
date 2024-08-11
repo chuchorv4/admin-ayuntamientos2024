@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  height: 100vh;
+  max-height: 100vh;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--s) / var(--tw-bg-opacity))
+    hsl(var(--p) / var(--tw-bg-opacity));
+}
+
+/* Chrome, Edge, and Safari */
+
+*::-webkit-scrollbar {
+  width: 2px;
+  cursor: pointer;
+}
+*::-webkit-scrollbar-track {
+  background-color: rgba(229, 231, 235, 0);
+  cursor: pointer;
+}
+*::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background-color: #a0aec0;
+}
+
+/* Loading */
+
+.loader {
+  border-top-color: #3498db;
+  -webkit-animation: spinner 1.5s linear infinite;
+  animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -25,7 +25,7 @@ const authOptions = {
     },
     async session({ _session, token }) {
       return {
-        ...token,
+        user: { ...token },
       }
     },
   },
