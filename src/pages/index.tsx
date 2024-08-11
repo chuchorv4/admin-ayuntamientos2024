@@ -1,7 +1,12 @@
+import { useAppSelector } from "@utils/hooks"
+
 const Main = () => {
+  const domains = useAppSelector(state => state.domains)
+
   return (
     <>
-      <h1 className="text-4xl font-bold">Hello, world!</h1>
+      <h2 className="text-4xl font-bold">Mis Sitios</h2>
+      <p>{JSON.stringify(domains)}</p>
     </>
   )
 }

@@ -2,6 +2,7 @@ import { AppProps } from "next/app"
 import "@styles/globals.css"
 import { SessionProvider } from "next-auth/react"
 import Layout from "../layout"
+import StoreProvider from "@components/store-provider"
 
 const App = ({
   Component,
@@ -9,7 +10,9 @@ const App = ({
 }: AppProps) => (
   <SessionProvider {...session}>
     <Layout>
-      <Component {...pageProperties} />
+      <StoreProvider>
+        <Component {...pageProperties} />
+      </StoreProvider>
     </Layout>
   </SessionProvider>
 )
