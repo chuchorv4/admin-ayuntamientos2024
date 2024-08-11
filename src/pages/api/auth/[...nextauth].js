@@ -16,6 +16,19 @@ const authOptions = {
     }),
   ],
   secret: NEXTAUTH_SECRET,
+  callbacks: {
+    async jwt({ token, profile }) {
+      if (profile) {
+        token.admin = profile.admin
+      }
+      return token
+    },
+    async session({ _session, token }) {
+      return {
+        ...token,
+      }
+    },
+  },
 }
 
 export default NextAuth(authOptions)
