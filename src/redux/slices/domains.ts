@@ -10,7 +10,7 @@ const domainsSlice = createSlice({
   reducers: {
     getDomains: state => state,
     populateDomains: (state, action: PayloadAction<Domain[]>) => action.payload,
-    addDomain: state => state,
+    addDomain: (state, _action: PayloadAction<Domain>) => state,
     removeDomain: state => state,
   },
 })

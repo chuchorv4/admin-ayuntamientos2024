@@ -9,11 +9,11 @@ const App = ({
   pageProps: { session, ...pageProperties },
 }: AppProps) => (
   <SessionProvider {...session}>
-    <Layout>
-      <StoreProvider>
+    <StoreProvider>
+      <Layout>
         <Component {...pageProperties} />
-      </StoreProvider>
-    </Layout>
+      </Layout>
+    </StoreProvider>
   </SessionProvider>
 )
 

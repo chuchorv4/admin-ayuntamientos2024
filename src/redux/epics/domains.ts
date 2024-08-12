@@ -1,17 +1,27 @@
-import { Domain } from "@interfaces/domains"
+import { Domain, domainPath } from "@interfaces/domains"
 import { getDomains, populateDomains } from "@redux/slices/domains"
 import type { Action } from "@reduxjs/toolkit"
-import { of, type Observable } from "rxjs"
+import { FetchService } from "@utils/fetch-service"
+import { Loading } from "@utils/loading"
+import type { Observable } from "rxjs"
 import { map, filter, mergeMap } from "rxjs/operators"
 
-const getDomainsEpic = (actions$: Observable<Action>): Observable<Action> =>
-  actions$.pipe(
+const fetchService = new FetchService("/api")
+const loading = Loading.getInstance()
+
+const getDomainsEpic = (actions$: Observable<Action>): Observable<Action> => {
+  loading.enable()
+  return actions$.pipe(
     filter(getDomains.match),
     mergeMap(() =>
-      of([{ _id: "1", name: "a", url: "1" }] as Domain[]).pipe(
-        map(response => populateDomains(response))
+      fetchService.get<Domain[]>(domainPath).pipe(
+        map(response => {
+          loading.disabled()
+          return populateDomains(response)
+        })
       )
     )
   )
+}
 
 export default getDomainsEpic

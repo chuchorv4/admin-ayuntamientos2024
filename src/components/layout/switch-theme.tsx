@@ -3,23 +3,23 @@
 import { useEffect, useState } from "react"
 import { useLocalStorage } from "usehooks-ts"
 
+const DARK_THEME = "aqua"
+const LIGHT_THEME = "emerald"
+
 const SwitchTheme: React.FC = () => {
-  //we store the theme in localStorage to preserve the state on next visit with an initial theme of night.
-  const [theme, setTheme] = useLocalStorage<"corporate" | "night">(
-    "theme",
-    "night"
-  )
+  //we store the theme in localStorage to preserve the state on next visit with an initial theme of aqua.
+  const [theme, setTheme] = useLocalStorage<string>("theme", DARK_THEME)
   const [isMoon, setIsMoon] = useState<boolean>(false)
   //toggles the theme
   const toggleTheme = () => {
-    setTheme(theme === "night" ? "corporate" : "night")
+    setTheme(theme === DARK_THEME ? LIGHT_THEME : DARK_THEME)
   }
 
   //modify data-theme attribute on document.body when theme changes
   useEffect(() => {
     const body = document.body
     body.dataset.theme = theme
-    setIsMoon(theme === "night")
+    setIsMoon(theme === DARK_THEME)
   }, [theme])
 
   return (

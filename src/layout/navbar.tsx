@@ -8,7 +8,7 @@ const handleLogout = () => {
 
 const Navbar: React.FC = () => {
   const session = useSession()
-  console.log(session)
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">

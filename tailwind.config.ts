@@ -9,7 +9,7 @@ const config: Config = {
   },
   plugins: [tailwindTypography, daisyui],
   daisyui: {
-    themes: ["night", "corporate"],
+    themes: ["aqua", "emerald"],
   },
 }
 export default config
