@@ -14,6 +14,12 @@
 //   }
 // }
 
+export interface FileUploadResponse {
+  originalname: string
+  filename: string
+  path: string
+}
+
 export class FileUpload {
   async uploadFile(file: File, id: string) {
     const formData = new FormData()
@@ -24,7 +30,7 @@ export class FileUpload {
       body: formData,
     })
 
-    const result = await response.json()
+    const result = (await response.json()) as FileUploadResponse
     return result
   }
 }

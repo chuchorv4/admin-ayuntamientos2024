@@ -1,6 +1,6 @@
 import { combineEpics } from "redux-observable"
-import getDomainsEpic from "./domains"
+import { getDomainsEpic, addDomainEpic } from "./domains"
 
-const rootEpic = combineEpics(getDomainsEpic)
+const rootEpic = combineEpics(getDomainsEpic, addDomainEpic)
 
 export default rootEpic

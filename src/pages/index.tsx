@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import ModalDomains from "@components/domains/modal-domains"
 import { Domain } from "@interfaces/domains"
-import { getDomains } from "@redux/slices/domains"
+import { addDomain, getDomains } from "@redux/slices/domains"
 import { useAppDispatch, useAppSelector } from "@utils/hooks"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
@@ -16,9 +16,8 @@ const Main = () => {
     dispatch(getDomains())
   }, [])
 
-  const handleCreateDomain = (_data: Domain) => {
-    // dispatch(addDomain(data))
-    //console.log(data)
+  const handleCreateDomain = (data: Domain) => {
+    dispatch(addDomain(data))
     handleCloseModalDomains()
   }
 
@@ -29,6 +28,7 @@ const Main = () => {
     <>
       <h2 className="text-4xl font-bold">Mis Sitios</h2>
       <p>{JSON.stringify(domains)}</p>
+      <img src={domains[0].logo} alt="" />
       {session?.data?.user.admin && (
         <>
           <button className="btn btn-primary" onClick={handleOpenModalDomains}>

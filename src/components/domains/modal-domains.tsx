@@ -35,7 +35,7 @@ const handleFileUpload = (
 const ModalDomains: React.FC<ModalProperties> = ({
   isOpen,
   onClose,
-  // onSubmit,
+  onSubmit,
 }) => {
   const {
     register,
@@ -64,23 +64,22 @@ const ModalDomains: React.FC<ModalProperties> = ({
     return <></>
   }
 
-  const preOnSubmit = (data: FormData) => {
-    // console.log(data)
-    fileUpload.uploadFile(data.favicon[0], "favicons").then(_response => {
-      // console.log(response)
-    })
-    // fileUpload.uploadFile(data.favicon[0], "favicons").subscribe({
-    //   next: response => {
-    //     console.log(response)
-    //   },
-    //   error: error => {
-    //     console.error(error)
-    //   },
-    //   complete: () => {
-    //     console.log("Complete")
-    //   },
-    // })
-    // onSubmit(data)
+  const preOnSubmit = async (data: FormData) => {
+    const { favicon, logo, ...domainData } = data
+
+    const faviconUrl = favicon
+      ? await fileUpload
+          .uploadFile(data.favicon[0], "favicons")
+          .then(response => response.path)
+          .catch(() => "")
+      : ""
+    const logoUrl = logo
+      ? await fileUpload
+          .uploadFile(data.logo[0], "logos")
+          .then(response => response.path)
+          .catch(() => "")
+      : ""
+    onSubmit({ ...domainData, favicon: faviconUrl, logo: logoUrl })
   }
 
   return (

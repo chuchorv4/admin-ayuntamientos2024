@@ -9,7 +9,8 @@ const domainsSlice = createSlice({
   initialState,
   reducers: {
     getDomains: state => state,
-    populateDomains: (state, action: PayloadAction<Domain[]>) => action.payload,
+    populateDomains: (_state, action: PayloadAction<Domain[]>) =>
+      action.payload,
     addDomain: (state, _action: PayloadAction<Domain>) => state,
     removeDomain: state => state,
   },
