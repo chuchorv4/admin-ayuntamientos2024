@@ -28,7 +28,7 @@ const Main = () => {
     <>
       <h2 className="text-4xl font-bold">Mis Sitios</h2>
       <p>{JSON.stringify(domains)}</p>
-      <img src={domains[0].logo} alt="" />
+      <img src={domains[0]?.logo} alt="" />
       {session?.data?.user.admin && (
         <>
           <button className="btn btn-primary" onClick={handleOpenModalDomains}>
