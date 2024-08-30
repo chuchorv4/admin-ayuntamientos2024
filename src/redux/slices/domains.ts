@@ -12,10 +12,16 @@ const domainsSlice = createSlice({
     populateDomains: (_state, action: PayloadAction<Domain[]>) =>
       action.payload,
     addDomain: (state, _action: PayloadAction<Domain>) => state,
-    removeDomain: state => state,
+    updateDomain: (state, _action: PayloadAction<Domain>) => state,
+    removeDomain: (state, _action: PayloadAction<string>) => state,
   },
 })
 
-export const { getDomains, populateDomains, addDomain, removeDomain } =
-  domainsSlice.actions
+export const {
+  getDomains,
+  populateDomains,
+  addDomain,
+  updateDomain,
+  removeDomain,
+} = domainsSlice.actions
 export default domainsSlice.reducer

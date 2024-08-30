@@ -1,14 +1,12 @@
-import { useSession } from "next-auth/react"
-import DomainContainer from "../containers/domain-container"
+import DomainsContainer from "../containers/domains-container"
 
 const Main = () => {
-  const session = useSession()
-
   return (
     <>
-      <h2 className="text-4xl font-bold">Mis Sitios</h2>
-
-      {session?.data?.user.admin && <DomainContainer></DomainContainer>}
+      <h2 className="text-4xl font-bold my-2">Mis Sitios</h2>
+      <div className="container mx-auto my-4 p-4 card bg-secondary bg-opacity-50">
+        <DomainsContainer />
+      </div>
     </>
   )
 }

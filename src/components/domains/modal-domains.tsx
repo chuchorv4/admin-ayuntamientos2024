@@ -16,6 +16,7 @@ interface ModalProperties {
   isOpen: boolean
   onClose: () => void
   onSubmit: (data: Domain) => void
+  domain?: Domain
 }
 
 const handleFileUpload = (
@@ -36,12 +37,14 @@ const ModalDomains: React.FC<ModalProperties> = ({
   isOpen,
   onClose,
   onSubmit,
+  domain,
 }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
   } = useForm<FormData>()
 
   const [faviconPreview, setFaviconPreview] = useState<string>()
@@ -60,6 +63,25 @@ const ModalDomains: React.FC<ModalProperties> = ({
     }
   }, [favicon, logo])
 
+  useEffect(() => {
+    if (domain) {
+      const { _id, name, url, description, favicon, logo } = domain
+      reset({ _id, name, url, description })
+      if (favicon) {
+        setFaviconPreview(favicon)
+      }
+      if (logo) {
+        setLogoPreview(logo)
+      }
+    }
+
+    if (!domain) {
+      reset()
+      setFaviconPreview(undefined)
+      setLogoPreview(undefined)
+    }
+  }, [domain, reset])
+
   if (!isOpen) {
     return <></>
   }
@@ -67,15 +89,15 @@ const ModalDomains: React.FC<ModalProperties> = ({
   const preOnSubmit = async (data: FormData) => {
     const { favicon, logo, ...domainData } = data
 
-    const faviconUrl = favicon
+    const faviconUrl = favicon[0]
       ? await fileUpload
-          .uploadFile(data.favicon[0], "favicons")
+          .uploadFile(favicon[0], "favicons")
           .then(response => response.path)
           .catch(() => "")
       : ""
-    const logoUrl = logo
+    const logoUrl = logo[0]
       ? await fileUpload
-          .uploadFile(data.logo[0], "logos")
+          .uploadFile(logo[0], "logos")
           .then(response => response.path)
           .catch(() => "")
       : ""

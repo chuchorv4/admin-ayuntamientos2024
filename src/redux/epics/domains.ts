@@ -1,5 +1,11 @@
 import { Domain, domainPath } from "@interfaces/domains"
-import { addDomain, getDomains, populateDomains } from "@redux/slices/domains"
+import {
+  addDomain,
+  getDomains,
+  populateDomains,
+  updateDomain,
+  removeDomain,
+} from "@redux/slices/domains"
 import type { Action } from "@reduxjs/toolkit"
 import { FetchService } from "@utils/fetch-service"
 import { Loading } from "@utils/loading"
@@ -34,6 +40,42 @@ export const addDomainEpic = (
     filter(addDomain.match),
     mergeMap(action =>
       fetchService.post<Domain>(domainPath, action.payload).pipe(
+        map(() => {
+          loading.disabled()
+          return getDomains()
+        })
+      )
+    )
+  )
+}
+
+export const updateDomainEpic = (
+  actions$: Observable<Action>
+): Observable<Action> => {
+  loading.enable()
+  return actions$.pipe(
+    filter(updateDomain.match),
+    mergeMap(action =>
+      fetchService
+        .update<Domain>(domainPath, action.payload._id, action.payload)
+        .pipe(
+          map(() => {
+            loading.disabled()
+            return getDomains()
+          })
+        )
+    )
+  )
+}
+
+export const removeDomainEpic = (
+  actions$: Observable<Action>
+): Observable<Action> => {
+  loading.enable()
+  return actions$.pipe(
+    filter(removeDomain.match),
+    mergeMap(action =>
+      fetchService.delete<Domain>(domainPath, action.payload).pipe(
         map(() => {
           loading.disabled()
           return getDomains()
